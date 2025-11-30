@@ -71,7 +71,7 @@ function draw()
   fill(200); 
   text("von C. Herting 2025", width-40, height-40); 
 
-  if (mouseX > 126 || mouseY > 286)
+  if (mouseX > 128 || mouseY > 288)
   {
     noStroke(); fill(0,20); ellipse((mouseX & 0xffe0)+15, (mouseY & 0xffe0)+15, 32);
   }
@@ -93,7 +93,7 @@ function mouseReleased(ev)
   if (ev && ev.target !== canvas.elt) return;
   let d = dist(mouseX, mouseY, mouseStartX, mouseStartY);
   let t = millis() - mouseStartTime;
-  if ((mouseStartX > 126 || mouseStartY > 286) && d < 50 && t < 200)
+  if ((mouseStartX > 128 || mouseStartY > 288) && d < 50 && t < 200)
   {
     if (mode == '+') sys.add((mouseX & 0xffe0)+15, (mouseY & 0xffe0)+15, 1);
     else sys.add((mouseX & 0xffe0)+15, (mouseY & 0xffe0)+15, -1);
