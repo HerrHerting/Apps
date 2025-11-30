@@ -68,7 +68,7 @@ function draw()
   text("alle Ströme löschen", 100, 180);
   text("Feldlinien anzeigen", 100, 230);
   textAlign(RIGHT, BOTTOM);
-  fill(100); 
+  fill(200); 
   text("von C. Herting 2025", width-40, height-40); 
 
   if (mouseX > 126 || mouseY > 286)
