@@ -143,7 +143,7 @@ class System
     {
       fill(0); noStroke();
       textAlign(LEFT, BOTTOM);
-      textSize(10);
+      textSize(20); fill(200);
       text("Pfeillänge " + int(10000 * sqrt(fx*fx + fy*fy)), 40, height-40); 
       
       stroke(0,0,255); strokeWeight(4);
