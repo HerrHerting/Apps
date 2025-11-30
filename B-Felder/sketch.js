@@ -1,11 +1,10 @@
-let s;
-let mode = '+';
+let sys; // system holding charges / currents
+let mode = '+'; // input mode
 
 let mouseStartX = 0;
 let mouseStartY = 0;
 let mouseStartTime = 0;
 
-let slider;
 let toggle;
 let canvas;
 
@@ -14,7 +13,7 @@ function setup()
   canvas = createCanvas(windowWidth, windowHeight);
   canvas.elt.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
   
-  s = new System();
+  sys = new System();
   
   textAlign(CENTER, CENTER);
   textSize(40);
@@ -34,7 +33,7 @@ function setup()
   let clearBtn = createButton('Clear');
   clearBtn.position(30, 171);
   clearBtn.addClass('button');
-  clearBtn.mousePressed(() => s.items = []);
+  clearBtn.mousePressed(() => sys.items = []);
 
   toggle = createCheckbox('', false);
   toggle.position(30, 226);
@@ -43,17 +42,16 @@ function setup()
 
 function windowResized()
 {
-  let attempts = 5;
-
+  let attempts = 5; // resize accross 5 frames to allow for the browser changing it's UI
+  let lastW = -1; let lastH = -1; // resize only if dimensions change
   function fixSize()
   {
-    resizeCanvas(windowWidth, windowHeight);
+    const w = windowWidth; const h = windowHeight;
+    if (w !== lastW || h !== lastH) { resizeCanvas(w, h); lastW = w; lastH = h; }
     if (--attempts > 0) requestAnimationFrame(fixSize);
   }
-
-  requestAnimationFrame(fixSize);
+  requestAnimationFrame(fixSize); // start resizing in next animation frame
 }
-
 
 function draw()
 {
@@ -63,21 +61,23 @@ function draw()
   textAlign(LEFT, TOP);
   noStroke();
 
-  fill(0,255); textStyle(BOLD); text("Kraftfeld elektrischer Ströme", 30, 30); textStyle(NORMAL);
-  fill(0,255,255,255); text("Strom in die Ebene setzen/löschen", 100, 80);
-  fill(255,0,0,255); text("Strom aus der Ebene setzen/löschen", 100, 130);
-  fill(0,255);
+  fill(0); textStyle(BOLD); text("Kraftfeld elektrischer Ströme", 30, 30); textStyle(NORMAL);
+  fill(0,255,255); text("Strom in die Ebene setzen/löschen", 100, 80);
+  fill(255,0,0); text("Strom aus der Ebene setzen/löschen", 100, 130);
+  fill(0);
   text("alle Ströme löschen", 100, 180);
   text("Feldlinien anzeigen", 100, 230);
   textAlign(RIGHT, BOTTOM);
+  fill(100); 
   text("von C. Herting 2025", width-40, height-40); 
 
-  noStroke();
-  fill(0,20);
-  ellipse((mouseX & 0xffe0)+15, (mouseY & 0xffe0)+15, 32);
+  if (mouseX > 126 || mouseY > 286)
+  {
+    noStroke(); fill(0,20); ellipse((mouseX & 0xffe0)+15, (mouseY & 0xffe0)+15, 32);
+  }
 
-  if (toggle.checked()) s.showall();
-  s.render();
+  if (toggle.checked()) sys.showall();
+  sys.render();
 }
 
 function mousePressed(ev)
@@ -95,8 +95,8 @@ function mouseReleased(ev)
   let t = millis() - mouseStartTime;
   if ((mouseStartX > 126 || mouseStartY > 286) && d < 50 && t < 200)
   {
-    if (mode == '+') s.add((mouseX & 0xffe0)+15, (mouseY & 0xffe0)+15, 1);
-    else s.add((mouseX & 0xffe0)+15, (mouseY & 0xffe0)+15, -1);
+    if (mode == '+') sys.add((mouseX & 0xffe0)+15, (mouseY & 0xffe0)+15, 1);
+    else sys.add((mouseX & 0xffe0)+15, (mouseY & 0xffe0)+15, -1);
   }
 }
 
@@ -143,8 +143,8 @@ class System
     {
       fill(0); noStroke();
       textAlign(LEFT, BOTTOM);
-      textSize(20);
-      text("Länge " + int(10000 * sqrt(fx*fx + fy*fy)), 40, height-40); 
+      textSize(10);
+      text("Pfeillänge " + int(10000 * sqrt(fx*fx + fy*fy)), 40, height-40); 
       
       stroke(0,0,255); strokeWeight(4);
       arrow(mouseX, mouseY, mouseX + fak*fx, mouseY + fak*fy);
