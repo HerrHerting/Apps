@@ -174,7 +174,7 @@ function renderElectrons(anz, ub, uy, tesla)
       }
 
       vx+= ax / sqrt(ub/STEPSCALE);
-      vy-= ay / sqrt(ub/STEPSCALE);
+      vy+= ay / sqrt(ub/STEPSCALE);
       x+= vx / sqrt(ub/STEPSCALE);		// Zeitschritt 1 Picosekunde / sqrt(ub/STEPSCALE)
       y-= vy / sqrt(ub/STEPSCALE);
       s--;
