@@ -126,7 +126,7 @@ function renderElectrons(anz, ub, uy, tesla)
   let STEPSCALE = 500000; // für die Skalierung mit der Beschleunigungsspannung
 
   ub += 0.5;
-  strokeWeight(5); stroke(225,240,255,30);
+  strokeWeight(5); stroke(225,240,255,40);
 
   for(let i=0; i<anz; i++)
   {
