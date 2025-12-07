@@ -90,7 +90,7 @@ function draw()
   background(161,179,234);
       
   image(screen, 0, 0, w, h);
-  renderElectrons(sliderI.value()/3000*100,
+  renderElectrons(sliderI.value()/3000*50,
                   sliderU.value(),
                   sliderE.value(),
                   sliderB.value()/1000000);
@@ -126,7 +126,7 @@ function renderElectrons(anz, ub, uy, tesla)
   let STEPSCALE = 500000; // für die Skalierung mit der Beschleunigungsspannung
 
   ub += 0.5;
-  strokeWeight(4); stroke(235,245,255,20);
+  strokeWeight(5); stroke(225,240,255,30);
 
   for(let i=0; i<anz; i++)
   {
