@@ -60,15 +60,7 @@ function setup()
   sliderB.position(450, 180); // unterhalb des Toggles
   sliderB.addClass('slider');
   
-  getDimensions();
-}
-
-function getDimensions()
-{
-  w = width;
-  h = height;
-  let a = screen.width/screen.height; // aspect reation of screen
-  if (a > width/height) { w = width; h = width/a; } else { w = height*a; h = height; }
+  doDimensions();
 }
 
 function windowResized()
@@ -82,15 +74,23 @@ function windowResized()
     if (--attempts > 0) requestAnimationFrame(fixSize);
   }
   requestAnimationFrame(fixSize); // start resizing in next animation frame
-  getDimensions();
+  doDimensions();
+}
+
+function doDimensions()
+{
+  w = width;
+  h = height;
+  let a = screen.width/screen.height; // aspect reation of screen
+  if (a > width/height) { w = width; h = width/a; } else { w = height*a; h = height; }
 }
 
 function draw()
 {
-  background(200);
+  background(150,200,255);
       
   image(screen, 0, 0, w, h);
-  renderElectrons(sliderI.value()/3000*50,
+  renderElectrons(sliderI.value()/3000*100,
                   sliderU.value(),
                   sliderE.value(),
                   sliderB.value()/1000000);
@@ -123,7 +123,7 @@ function mouseReleased(ev)
 
 function renderElectrons(anz, ub, uy, tesla)
 {
-  let STEPSCALE = 800000; // für die Skalierung mit der Beschleunigungsspannung
+  let STEPSCALE = 500000; // für die Skalierung mit der Beschleunigungsspannung
 
   ub += 0.5;
   strokeWeight(5); stroke(235,245,255,40);
