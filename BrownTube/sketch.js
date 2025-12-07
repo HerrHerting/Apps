@@ -45,19 +45,19 @@ function setup()
 */
 
   sliderI = createSlider(0, 3000, 0); // Beispielwerte
-  sliderI.position(400, 30); // unterhalb des Toggles
+  sliderI.position(450, 30); // unterhalb des Toggles
   sliderI.addClass('slider');
   
   sliderU = createSlider(0, 5000, 0); // Beispielwerte
-  sliderU.position(400, 80); // unterhalb des Toggles
+  sliderU.position(450, 80); // unterhalb des Toggles
   sliderU.addClass('slider');
   
   sliderE = createSlider(-5000, 5000, 0); // Beispielwerte
-  sliderE.position(400, 130); // unterhalb des Toggles
+  sliderE.position(450, 130); // unterhalb des Toggles
   sliderE.addClass('slider');
 
   sliderB = createSlider(-10000, 10000, 0); // Beispielwerte
-  sliderB.position(400, 180); // unterhalb des Toggles
+  sliderB.position(450, 180); // unterhalb des Toggles
   sliderB.addClass('slider');
   
   getDimensions();
