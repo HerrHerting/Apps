@@ -45,37 +45,35 @@ function setup()
 
 function windowResized()
 {
-  let attempts = 5; // resize accross 5 frames to allow for the browser changing it's UI
-  let lastW = -1; let lastH = -1; // resize only if dimensions change
+  let attempts = 5;              // über max. 5 Frames nachjustieren
+  let lastW = -1, lastH = -1;    // nur bei Änderung wirklich resizen
+
   function fixSize()
   {
-    const w = windowWidth; const h = windowHeight;
-    if (w !== lastW || h !== lastH) { resizeCanvas(w, h); lastW = w; lastH = h; }
+    const wi = windowWidth; const hi = windowHeight;
+    if (wi !== lastW || hi !== lastH) { resizeCanvas(wi, hi); lastW = wi; lastH = hi; }
+
+    const a = screen.width / screen.height; // Aspect Ratio des Geräts
+    if (a > width / height) { w = width; h = width / a; }
+    else { w = height * a; h = height; }
+
+    sliderI.position(w * 0.45, h * 0.045);
+    sliderU.position(w * 0.45, h * 0.115);
+    sliderE.position(w * 0.45, h * 0.185);
+    sliderB.position(w * 0.45, h * 0.255);
+
+    sliderI.size(w * 0.495);
+    sliderU.size(w * 0.495);
+    sliderE.size(w * 0.495);
+    sliderB.size(w * 0.495);
+
+    EBtn.position(w * 0.44 - EBtn.size().width, h * 0.185 - 13);
+    BBtn.position(w * 0.44 - BBtn.size().width, h * 0.255 - 13);
+
     if (--attempts > 0) requestAnimationFrame(fixSize);
   }
-  requestAnimationFrame(fixSize); // start resizing in next animation frame
-  doDimensions();
 
-  sliderI.position(w*0.45, h*0.045);
-  sliderU.position(w*0.45, h*0.115);
-  sliderE.position(w*0.45, h*0.185);
-  sliderB.position(w*0.45, h*0.255);
-
-  sliderI.size(w*0.495);
-  sliderU.size(w*0.495);
-  sliderE.size(w*0.495);
-  sliderB.size(w*0.495);
-  
-  EBtn.position(w*0.44 - EBtn.size().width, h*0.185 - 13);
-  BBtn.position(w*0.44 - BBtn.size().width, h*0.255 - 13);
-}
-
-function doDimensions()
-{
-  w = width;
-  h = height;
-  let a = screen.width/screen.height; // aspect reation of screen
-  if (a > width/height) { w = width; h = width/a; } else { w = height*a; h = height; }
+  fixSize();
 }
 
 function draw()
