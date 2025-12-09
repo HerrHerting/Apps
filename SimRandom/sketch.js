@@ -19,7 +19,7 @@ function setup()
   strokeWeight(1);
   noStroke();
   
-  slider = createSlider(9, 50, 9);
+  slider = createSlider(15, 50, 15);
   slider.addClass('slider');
   slider.changed(handleReset);
 
